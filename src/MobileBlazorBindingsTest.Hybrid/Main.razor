@@ -1,0 +1,33 @@
+﻿@inject CounterState CounterState
+
+<ContentView>
+
+        @*<StackLayout Margin="new Thickness(20)" Orientation="StackOrientation.Horizontal">
+            <Label Text="@($"Hello, World! {CounterState.CurrentCount}")" FontSize="40" HorizontalOptions="LayoutOptions.StartAndExpand" />
+            <Button Text="Increment" OnClick="@Increment" VerticalOptions="LayoutOptions.Center" Padding="10" />
+        </StackLayout>*@
+
+    <BlazorWebView ContentRoot="WebUI/wwwroot" VerticalOptions="LayoutOptions.FillAndExpand">
+        <MobileBlazorBindingsTest.Hybrid.WebUI.App />
+    </BlazorWebView>
+
+</ContentView>
+
+
+@code 
+{
+    protected void Increment()
+    {
+        CounterState.IncrementCount();
+    }
+
+    protected override void OnInitialized()
+    {
+        CounterState.StateChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CounterState.StateChanged -= StateHasChanged;
+    }
+}
